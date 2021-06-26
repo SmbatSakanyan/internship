@@ -3,16 +3,29 @@ import PostsContainer from "./Components/postscontainer/postscontainer";
 import LogicalContainer from "./Components/logicalcontainer/logicalcontainer";
 import {Container,Row,Col} from "react-bootstrap";
 import someposts from "./someposts";
+import { useState } from 'react';
 
 
 
   function App() {
-    const posts = someposts;
+
+    const [posts,setPosts] = useState(someposts);
+
     const setVisibilityTrue = (index)=>{
-      posts[index].visibility = true;
+      const newPosts = [...posts];
+      newPosts[index].visibility = true;
+      setPosts(newPosts)
     }
     const setVisibilityFalse = (index)=>{
-      posts[index].visibility = undefined;
+      const newPosts = [...posts];
+      newPosts[index].visibility = undefined;
+      setPosts(newPosts)
+    }
+
+    const addComent = (index,coment) => {
+      const newPosts = [...posts];
+      newPosts[index].coments.push({rating: 0, text: coment});
+      setPosts(newPosts)
     }
 
 
@@ -23,6 +36,7 @@ import someposts from "./someposts";
           <Col sm={4}>
             <PostsContainer
             posts ={posts}
+            addComent ={addComent}
             />
           </Col>
           <Col>
