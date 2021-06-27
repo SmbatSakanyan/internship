@@ -8,7 +8,8 @@ class Post extends Component {
     super(props)
     this.state = {
       adding: false ,
-      newComentValue: ""
+      newComentValue: "",
+      newReplyValue: ""
     }
   }
 
@@ -29,9 +30,16 @@ class Post extends Component {
       this.setState(newState)
   }
 
-  
+  replyInputChange = (e) => {
+      const newState ={...this.state}
+      newState.newReplyValue = e.target.value
+      this.setState(newState)
+  }
+
     render() {
       let input;
+      
+      let replyButton;
       if(this.state.adding){
         input = 
         <>
@@ -39,6 +47,9 @@ class Post extends Component {
           <Button onClick ={this.onAdd}>add</Button>
         </>
       }
+      
+
+      
         return (
           <Card border ="primary" style={{ width: '18rem' }}>
             <Card.Body>
@@ -47,10 +58,40 @@ class Post extends Component {
                 {this.props.post}
               </Card.Text>
               <ListGroup variant="flush">
-                {this.props.coments.map((coment, index)=>{
+                {
+                this.props.coments.map((coment, index)=>{
+                  let reply
+                  if(coment.reply){
+                      reply = `reply =>   ${coment.reply}`
+                  }
+                  let comindex;
+                  comindex =index;
+                  let replyInput;
+                    if(!coment.replying && !coment.reply)  {
+                      replyButton = <Button onClick = {() =>{
+                        this.props.onReply(this.props.index,comindex)
+                      }}>reply</Button>
+                    }
+
+                    if(coment.replying){
+                      replyInput =
+                      <>
+                        <input type="text" onChange ={this.replyInputChange}/>
+                        <Button onClick ={
+                          ()=>{
+                              this.props.onAddReply(this.props.index,comindex,this.state.newReplyValue)
+                              const newState ={...this.state}
+                              newState.newReplyValue = ""
+                              this.setState(newState)
+                          }
+                        }>Reply</Button>
+                      </>
+                    }
                     return <ListGroup.Item key ={index}>
                       <p>{coment.text + `   rating....${coment.rating}`}</p>
-                      <Button>reply</Button>
+                      <p>{reply}</p>
+                      {replyButton}
+                      {replyInput}
                       </ListGroup.Item>
                 })}
               </ListGroup>

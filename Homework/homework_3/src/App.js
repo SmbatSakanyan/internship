@@ -28,6 +28,18 @@ import { useState } from 'react';
       setPosts(newPosts)
     }
 
+    const onReply = (a,b) =>{
+      const newPosts = [...posts];
+      newPosts[a].coments[b].replying = true;
+      setPosts(newPosts)
+    }
+    const onAddReply = (a,b,value) => {
+      const newPosts = [...posts];
+      newPosts[a].coments[b].reply = value;
+      newPosts[a].coments[b].replying = false;
+      setPosts(newPosts)
+    }
+
 
   return (
     <div className="App">
@@ -37,6 +49,8 @@ import { useState } from 'react';
             <PostsContainer
             posts ={posts}
             addComent ={addComent}
+            onReply = {onReply}
+            onAddReply ={onAddReply}
             />
           </Col>
           <Col>

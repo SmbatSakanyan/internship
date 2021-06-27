@@ -16,6 +16,8 @@ class PostsContainer extends Component {
             coments = {item.coments}
             key = {index}
             onAddComent ={this.props.addComent}
+            onReply = {this.props.onReply}
+            onAddReply ={this.props.onAddReply}
             />
         })}
         </>
