@@ -40,6 +40,10 @@ import { useState } from 'react';
       setPosts(newPosts)
     }
 
+    const searchedPosts = (resArr) => {
+      setPosts(resArr)
+    }
+
 
   return (
     <div className="App">
@@ -51,6 +55,7 @@ import { useState } from 'react';
             addComent ={addComent}
             onReply = {onReply}
             onAddReply ={onAddReply}
+            searchedPosts ={searchedPosts}
             />
           </Col>
           <Col>

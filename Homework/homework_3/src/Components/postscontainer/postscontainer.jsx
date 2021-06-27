@@ -7,7 +7,10 @@ class PostsContainer extends Component {
     render() {
        return(
         <>
-        <Search/>
+        <Search
+        posts = {this.props.posts}
+        searchedPosts ={this.props.searchedPosts}
+        />
         {this.props.posts.map((item,index) => {
             return <Post
             index = {index}

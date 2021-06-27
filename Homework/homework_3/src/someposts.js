@@ -55,7 +55,7 @@ const someposts = [
     },
     {
         title: "Post 4",
-        post: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur tempore iure unde dolores repellendus natus assumenda facilis architecto debitis nobis!",
+        post: "Lorem ipsum dolor Smbat sit amet consectetur adipisicing elit. Consequatur tempore iure unde dolores repellendus natus assumenda facilis architecto debitis nobis!",
         coments: [
             {
                 text: "Lorem ipsum dolor sit amet.",
