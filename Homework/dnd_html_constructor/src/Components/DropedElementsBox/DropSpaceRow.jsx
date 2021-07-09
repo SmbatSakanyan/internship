@@ -8,10 +8,10 @@ import DropedElement from "./dropedElement";
 function DropSpaceRow ({addRow,changeColStyle,colStyle,index,mainColStyle,changeMainColStyle,spacesLength}){
     const[dropedElements,setDropedElements] = useState([]);
 
-    useEffect(()=>{
-        changeMainColStyle(spacesLength)
-        changeColStyle(spacesLength)
-    })
+    // useEffect(()=>{
+    //     changeMainColStyle(spacesLength)
+    //     changeColStyle(spacesLength)
+    // })
 
 
     const onDrop = (e) => {
@@ -21,7 +21,7 @@ function DropSpaceRow ({addRow,changeColStyle,colStyle,index,mainColStyle,change
         newDropedElements.push({type: e.dataTransfer.getData("id")});
         setDropedElements(newDropedElements);
         // console.log(index)
-        addRow(index)
+        addRow()
         changeMainColStyle()
         changeColStyle()   
     }

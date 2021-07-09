@@ -8,35 +8,31 @@ import DropSpaceRow from "./DropSpaceRow";
 
 
 function DropedElementsBox () {
-    const [spaces,setSpaces] = useState([[]]);
+    const [spaces,setSpaces] = useState([1]);
     const [colStyle,setColStyle] = useState({height: `${100/spaces.length}vh`});
     const [mainColStyle,setMainColStyle] = useState({"border": "3px dotted blue","height": `${100/3}vh`});
 
 
-
-    const addRow = (index) => {
+    const addRow = (row) => {
         const newSpaces = [...spaces];
-        if(newSpaces[!index+1]){
-            newSpaces.push({id: -1});
-        }
-        if(newSpaces[!index-1]){
-            newSpaces.unshift({id: 2});
-        }
-        console.log(spaces[index+1])
+        newSpaces.push({id: -1});
+        newSpaces.unshift({id: 2});
         setSpaces(newSpaces);
+        console.log(newSpaces)
     }
 
-    const changeColStyle = (spacesLength) => {
+    const changeColStyle = () => {
         const newColStyle = {...colStyle};
-        newColStyle.height = `${100/spacesLength}vh`;
+        newColStyle.height = `${100/spaces.length}vh`;
         newColStyle.border = "3px dotted blue";
         setColStyle(newColStyle);
     }
     
-    const changeMainColStyle = (spacesLength) => {
+    const changeMainColStyle = () => {
         const newMainColStyle = {...mainColStyle};
         newMainColStyle.border = "3px dotted blue";
-        newMainColStyle.height = `${100/spacesLength}vh`
+        console.log(spaces.length)
+        newMainColStyle.height = `${100/spaces.length}vh`
         setMainColStyle(newMainColStyle);
     }
     return(
@@ -45,7 +41,6 @@ function DropedElementsBox () {
                 spaces.map((item,index)=>{
                     return <DropSpaceRow
                     spacesLength ={spaces.length}
-                    index ={index}
                     mainColStyle ={mainColStyle}
                     changeMainColStyle ={changeMainColStyle}
                     colStyle = {colStyle}
