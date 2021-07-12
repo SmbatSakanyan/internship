@@ -5,14 +5,21 @@ import DropedElement from "./dropedElement";
 
 
 
-function DropSpaceRow ({addRow,changeColStyle,colStyle,index,mainColStyle,changeMainColStyle,spacesLength}){
+function DropSpaceRow ({addingElements,addRow,changeColStyle,colStyle,index,mainColStyle,changeMainColStyle,spacesLength,id,elements}){
     const[dropedElements,setDropedElements] = useState([]);
+    
+
+    useEffect(()=>{
+        if(spacesLength>1){
+        changeMainColStyle(spacesLength)
+        changeColStyle(spacesLength)
+    }
+    },[spacesLength])
 
     // useEffect(()=>{
-    //     changeMainColStyle(spacesLength)
-    //     changeColStyle(spacesLength)
-    // })
-
+    //     addingElements(dropedElements,index)
+    // },[dropedElements])
+    
 
     const onDrop = (e) => {
         e.preventDefault()
@@ -20,10 +27,13 @@ function DropSpaceRow ({addRow,changeColStyle,colStyle,index,mainColStyle,change
         const newDropedElements = [...dropedElements];
         newDropedElements.push({type: e.dataTransfer.getData("id")});
         setDropedElements(newDropedElements);
-        // console.log(index)
-        addRow()
-        changeMainColStyle()
-        changeColStyle()   
+        console.log(elements)
+        addRow(index)
+        
+        // addingElements(dropedElements,index)
+        // changeMainColStyle()
+        // changeColStyle() 
+
     }
 
     const onMiddleLeftDrop = (e) => {
@@ -51,6 +61,7 @@ function DropSpaceRow ({addRow,changeColStyle,colStyle,index,mainColStyle,change
             onDragOver = {(e) => onDragOver(e)}
             onDrop = {(e) => onDrop(e)}
             >
+                <p>{id}</p>
                 {
                     dropedElements.map((item,index) => {
                         return <DropedElement
@@ -58,7 +69,7 @@ function DropSpaceRow ({addRow,changeColStyle,colStyle,index,mainColStyle,change
                                 key = {index}
                                 /> 
                     })
-                            }
+                }
             </Col>
             <Col onDragOver = {(e) => onDragOver(e)} onDrop = {(e) => onMiddleRightDrop(e)} xs ={2} style ={colStyle}></Col>
         </Row>
