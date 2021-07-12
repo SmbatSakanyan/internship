@@ -1,53 +1,42 @@
 import { useEffect } from "react";
-import {React,useState} from "react";
-import { Row,Col} from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import DropedElement from "./dropedElement";
 
 
 
-function DropSpaceRow ({addingElements,addRow,changeColStyle,colStyle,index,mainColStyle,changeMainColStyle,spacesLength,id,elements}){
-    const[dropedElements,setDropedElements] = useState([]);
-    
+function DropSpaceRow({ addElemetsToRow, addRow, changeColStyle, colStyle, index, mainColStyle, changeMainColStyle, spacesLength, id, elements }) {
 
-    useEffect(()=>{
-        if(spacesLength>1){
-        changeMainColStyle(spacesLength)
-        changeColStyle(spacesLength)
-    }
-    },[spacesLength])
 
-    // useEffect(()=>{
-    //     addingElements(dropedElements,index)
-    // },[dropedElements])
-    
+
+    useEffect(() => {
+        if (spacesLength > 1) {
+            changeMainColStyle(spacesLength)
+            changeColStyle(spacesLength)
+        }
+    }, [spacesLength])
+
+
 
     const onDrop = (e) => {
         e.preventDefault()
-        // console.log(e.dataTransfer.getData("id"))
-        const newDropedElements = [...dropedElements];
-        newDropedElements.push({type: e.dataTransfer.getData("id")});
-        setDropedElements(newDropedElements);
-        console.log(elements)
+        const element = { type: e.dataTransfer.getData("id") };
+        addElemetsToRow(index, element, 0)
         addRow(index)
-        
-        // addingElements(dropedElements,index)
-        // changeMainColStyle()
-        // changeColStyle() 
-
+        console.log(elements)
     }
 
     const onMiddleLeftDrop = (e) => {
         e.preventDefault()
-        const newDropedElements = [...dropedElements];
-        newDropedElements.unshift({type: e.dataTransfer.getData("id")});
-        setDropedElements(newDropedElements);
+
+        const element = { type: e.dataTransfer.getData("id") };
+        addElemetsToRow(index, element, 1)
+
     }
 
     const onMiddleRightDrop = (e) => {
         e.preventDefault()
-        const newDropedElements = [...dropedElements];
-        newDropedElements.push({type: e.dataTransfer.getData("id")});
-        setDropedElements(newDropedElements);
+        const element = { type: e.dataTransfer.getData("id") };
+        addElemetsToRow(index, element, -1)
     }
 
     const onDragOver = (e) => {
@@ -55,23 +44,22 @@ function DropSpaceRow ({addingElements,addRow,changeColStyle,colStyle,index,main
     }
 
     return (
-        <Row md = {3}>
-            <Col onDragOver = {(e) => onDragOver(e)} onDrop = {(e) => onMiddleLeftDrop(e)} xs ={4} style ={colStyle}></Col>
-            <Col xs ={6} style ={mainColStyle} 
-            onDragOver = {(e) => onDragOver(e)}
-            onDrop = {(e) => onDrop(e)}
+        <Row md={3}>
+            <Col onDragOver={(e) => onDragOver(e)} onDrop={(e) => onMiddleLeftDrop(e)} xs={4} style={colStyle}></Col>
+            <Col xs={6} style={mainColStyle}
+                onDragOver={(e) => onDragOver(e)}
+                onDrop={(e) => onDrop(e)}
             >
-                <p>{id}</p>
                 {
-                    dropedElements.map((item,index) => {
+                    elements.map((item, index) => {
                         return <DropedElement
-                                type = {item.type}
-                                key = {index}
-                                /> 
+                            type={item.type}
+                            key={index}
+                        />
                     })
                 }
             </Col>
-            <Col onDragOver = {(e) => onDragOver(e)} onDrop = {(e) => onMiddleRightDrop(e)} xs ={2} style ={colStyle}></Col>
+            <Col onDragOver={(e) => onDragOver(e)} onDrop={(e) => onMiddleRightDrop(e)} xs={2} style={colStyle}></Col>
         </Row>
     )
 }
