@@ -4,16 +4,16 @@ import DropedElement from "./dropedElement";
 
 
 
-function DropSpaceRow({ addElemetsToRow, addRow, changeColStyle, colStyle, index, mainColStyle, changeMainColStyle, spacesLength, id, elements }) {
+function DropSpaceRow({ addElemetsToRow, addRow, changeColStyle, colStyle, index, mainColStyle, changeMainColStyle, spacesLength, elements }) {
 
-
+    
 
     useEffect(() => {
         if (spacesLength > 1) {
             changeMainColStyle(spacesLength)
             changeColStyle(spacesLength)
         }
-    }, [spacesLength])
+    }, [spacesLength,changeMainColStyle,changeColStyle])
 
 
 
@@ -22,7 +22,6 @@ function DropSpaceRow({ addElemetsToRow, addRow, changeColStyle, colStyle, index
         const element = { type: e.dataTransfer.getData("id") };
         addElemetsToRow(index, element, 0)
         addRow(index)
-        console.log(elements)
     }
 
     const onMiddleLeftDrop = (e) => {

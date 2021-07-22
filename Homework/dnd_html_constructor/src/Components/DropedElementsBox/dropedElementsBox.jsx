@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
+import { useCallback } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
 import DropSpaceRow from "./DropSpaceRow";
@@ -9,12 +9,11 @@ import DropSpaceRow from "./DropSpaceRow";
 
 function DropedElementsBox() {
     const [spaces, setSpaces] = useState([{
-        elements: [],
-        id: 0
+        elements: []
     }]);
     // const [spaces,setSpaces] = useState([]);
     const [colStyle, setColStyle] = useState({ height: `${100 / 3}vh` });
-    const [mainColStyle, setMainColStyle] = useState({ "border": "3px dotted blue", "height": `${100 / 3}vh` });
+    const [mainColStyle, setMainColStyle] = useState({ border: "3px dotted blue", borderRadius: "60px", height: `${100 / 3}vh` });
 
 
     const addElemetsToRow = (index, element, side) => {
@@ -58,19 +57,30 @@ function DropedElementsBox() {
     }
 
 
-    const changeColStyle = () => {
-        const newColStyle = { ...colStyle };
-        newColStyle.height = `${100 / spaces.length}vh`;
-        newColStyle.border = "3px dotted blue";
-        setColStyle(newColStyle);
-    }
+    const changeColStyle = useCallback(
+        () => {
+            const newColStyle = { ...colStyle };
+            newColStyle.height = `${100 / spaces.length}vh`;
+            newColStyle.border = "3px dotted red";
+            newColStyle.borderRadius = "60px";
+            setColStyle(newColStyle);
+        },[spaces.length,colStyle]
+    )
+    const changeMainColStyle = useCallback(
+        () => {
+            const newMainColStyle = { ...mainColStyle };
+            newMainColStyle.border = "3px dotted blue";
+            newMainColStyle.height = `${100 / spaces.length}vh`
+            setMainColStyle(newMainColStyle); 
+        },[spaces.length,mainColStyle]
+    )
 
-    const changeMainColStyle = () => {
-        const newMainColStyle = { ...mainColStyle };
-        newMainColStyle.border = "3px dotted blue";
-        newMainColStyle.height = `${100 / spaces.length}vh`
-        setMainColStyle(newMainColStyle);
-    }
+    // const changeMainColStyle = () => {
+    //     const newMainColStyle = { ...mainColStyle };
+    //     newMainColStyle.border = "3px dotted blue";
+    //     newMainColStyle.height = `${100 / spaces.length}vh`
+    //     setMainColStyle(newMainColStyle);
+    // }
 
     return (
         <Container>

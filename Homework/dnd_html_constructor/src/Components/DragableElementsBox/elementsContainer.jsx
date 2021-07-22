@@ -4,7 +4,8 @@ const style ={
     "marginTop": "20px",
     "backgroundColor": "blue",
     "color": "#fff",
-    "height": "50px"
+    "height": "50px",
+    borderRadius: "60px"
 }
 
 function ElementsContainer () {
