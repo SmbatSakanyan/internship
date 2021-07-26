@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const authRoute = require('./routes/auth');
-const cookieParser = require('cookie-parser');
+
 
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
@@ -16,7 +16,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 
 app.use(express.json());
-app.use(cookieParser());
+
 
 app.use('/auth', authRoute);
 
