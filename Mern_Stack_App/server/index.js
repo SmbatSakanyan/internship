@@ -1,8 +1,11 @@
 require('dotenv').config();
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser');
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const authRoute = require('./routes/auth');
+const hotelRoute = require('./routes/hotel')
 
 
 mongoose.connect(process.env.MONGODB_URI, {
@@ -15,10 +18,11 @@ mongoose.connect(process.env.MONGODB_URI, {
     .catch(err => console.log(err));
 
 
+
 app.use(express.json());
-
-
+app.use(cookieParser());
 app.use('/auth', authRoute);
+app.use('/hotels',hotelRoute);
 
 
 

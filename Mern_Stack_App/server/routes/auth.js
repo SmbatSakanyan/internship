@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const User = require('../mongo/user');
+const User = require('../models/user');
 
 
 router.post('/register', async (req, res) => {
@@ -61,6 +61,7 @@ router.post('/login', async (req, res) => {
 
 
 router.get('/logout', (req, res) => {
+  console.log(req.cookies)
   const token = req.cookies.authToken;
   res.clearCookie('authToken', token, {
     httpOnly: true
